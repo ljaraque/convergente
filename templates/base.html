@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINETAGE</title>
+    <!-- Loading Bootstrap CSS -->
+    <link 
+    rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
+    crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" 
+        rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" >
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">ConverGente</a>
+  
+        <!-- Navigation Bar Hamburger-->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navigation"
+          aria-expanded="false"
+          aria-controls="navigation" 
+          aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- End Navigation Bar Hamburger -->
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navigation">
+           <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a
+                  class="nav-link scroll-trigger" 
+                  href="">
+                    Principal
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link scroll-trigger" 
+                  href="">
+                    Empresa
+                </a>
+              </li>
+              <li class="nav-item">
+                <a 
+                  class="nav-link scroll-trigger" 
+                  href="">
+                    Servicios
+                </a>
+              </li>
+              <li class="nav-item">
+                <a 
+                  class="nav-link scroll-trigger" 
+                  href="">
+                    Contacto
+                </a>
+              </li>
+              {% if user.is_authenticated %}
+              {% if user.rol == "operador" or user.rol == "cliente" %}
+              <li class="nav-item">
+                <a 
+                  class="nav-link scroll-trigger" 
+                  href="">
+                    USUARIOS
+                </a>
+              </li>
+              {% endif %}
+              {% if user.rol != "operador" %}
+              <li class="nav-item">
+                <a 
+                  class="nav-link scroll-trigger" 
+                  href="">
+                    Xtage21
+                </a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a 
+                class="nav-link scroll-trigger" 
+                href="{% url 'logout' %}?next={% url 'gestion:principal' %}">
+                Logout
+                </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link scroll-trigger" style = "color:yellow;"> --- Hola, {{user.username}}</a>
+              </li>
+
+              {% else %}
+                <li class="nav-item">
+                    <a 
+                    class="nav-link scroll-trigger" 
+                    href="{% url 'gestion:registro' %}">
+                        Registrar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a 
+                    class="nav-link scroll-trigger" 
+                    href="{% url 'login' %}">
+                        Login
+                    </a>
+                </li>
+              {% endif %}
+
+           </ul>
+
+        </div>
+        <!-- Navigation Links -->
+    </nav>
+    <!-- End Navigation Bar -->
+
+
+
+    <!-- Section: Contacto -->
+    <div class="" id="base">
+        <div class="row">
+            <div class="col-12">
+            {% block contenidos %}{% endblock %}
+            </div>
+        </div>
+ 
+    </div>
+    <!-- End Section: Contacto -->
+
+    <footer class="footer bg-dark text-center">
+      <p class="text-muted">&copy; 2021 CINETAGE</p>
+      <p class="text-muted">Xtage21</p>
+    </footer>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script 
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
+      crossorigin="anonymous">
+    </script>
+</body>
+</html>

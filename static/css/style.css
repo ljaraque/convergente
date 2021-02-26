@@ -1,0 +1,30 @@
+/*
+Awakelab
+Full Stack Python 2020
+*/
+
+h1, h2, h3, h4, h5, h6, .navbar { 
+    font-family: 'Poiret One', cursive;
+}
+
+.card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.navbar a {
+    font-weight: bold;
+}
+
+.navbar-dark {
+    background-color:black;
+}
+
+
+#base {
+    padding-top: 60px;
+    min-height: 700px;
+}
+
+
+

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+<div class="container-fluid">
+    <h1>Página de Login</h1>
+    <div class="row">
+        <div class="col-12">
+            {% if form.errors %}
+            <h4>Los datos de autenticación no corresponden. Trata nuevamente.</h4>
+            {% endif %}
+
+            {% if next %}
+            {% if user.is_authenticated %}
+            <h4>Tu cuenta no tiene acceso a este recurso.</h4>
+            <h4>Debes tener los privilegios, contacta al administrador.</h4>
+            {% else %}
+            <h4>Debes autenticarte para acceder a este sitio.</h4>
+            {% endif %}
+            {% endif %}
+        </div>
+            <div class="col-12">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <table>
+                {{ form.as_table }}
+                </table>
+                <input type="submit" class="btn btn-primary" value="Login" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
