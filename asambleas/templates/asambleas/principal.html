@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block contenidos %}
-
+{% if messages %}
+<div id="mensaje">
+{% for message in messages %}
+<p style="color: red;">{{message}}</p>
+<hr>
+{% endfor %}
+</div>
+{% endif %}
 <h1>Página Principal</h1>
 <p>Esta es la página principal</p>
 <img src="{% static 'asambleas/img/foto1.jpg' %}" alt="foto" width="50%" style="min-width: 400px;">
@@ -52,8 +59,5 @@
 
 <br><br><br>
 
-<footer class="footer bg-dark text-center">
-    <p class="text-muted">&copy; 2021 ConverGente</p>
-    <p class="text-muted">ConverGente</p>
-</footer>
+
 {% endblock %}

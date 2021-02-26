@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from .models import Rol
 
 User = get_user_model()
@@ -34,8 +35,8 @@ def registro(request):
                                     rol=rol)
             #user = authenticate(username=username, password=raw_password, rol="subcliente")
             #login(request, user)
-            list(messages.get_messages(request))
-            messages.success(request, "El usuario fué creado exitósamente!")
+            #list(messages.get_messages(request))
+            #messages.success(request, "El usuario fué creado exitósamente!")
             return redirect('asambleas:principal')
     else:
         form = FormularioRegistroUser()
