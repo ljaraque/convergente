@@ -41,3 +41,8 @@ def registro(request):
     else:
         form = FormularioRegistroUser()
     return render(request, 'gestion/usuario_registro.html', {'form': form})
+
+###############################################################################
+# Gestion Representante -- Miembro
+###############################################################################
+

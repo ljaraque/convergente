@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<div class="container-fluid bg-light custom-section">
+    <div class="row justify-content-center align-items-center h-100">
+        <h2 class="text-center">Secciones de Propuesta Asamblea</h2>
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+
+        <div class="col-sm-3">
+            <a class="btn btn-success"
+                href="{% url 'asambleas:crear_seccion_propuesta' %}">
+                    + Agregar Sección
+            </a>
+        </div>
+
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="table-responsive col col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th>Texto</th>
+                        <th>Tema</th>
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seccion in secciones %}
+                    <tr>
+                        <td>{{ seccion.id }}</td>
+                        <td>{{ seccion.titulo }}</td>
+                        <td>{{ seccion.texto }}</td>
+                        <td>{{ seccion.tema }}</td>
+     
+                        <td style="display: inline-block;">
+                            <a class="btn btn-danger btn-sm" href="">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="">X</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINETAGE</title>
+    <title>ConverGente</title>
     <!-- Loading Bootstrap CSS -->
     <link 
     rel="stylesheet" 
@@ -38,54 +38,85 @@
               <li class="nav-item">
                 <a
                   class="nav-link scroll-trigger" 
-                  href="">
-                    Principal
+                  href="{% url 'asambleas:principal' %}#iniciativa">
+                    Iniciativa
                 </a>
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link scroll-trigger" 
-                  href="">
-                    Empresa
+                  href="{% url 'asambleas:principal' %}#que_hacemos">
+                    Qué Hacemos
                 </a>
               </li>
               <li class="nav-item">
                 <a 
                   class="nav-link scroll-trigger" 
-                  href="">
-                    Servicios
-                </a>
-              </li>
-              <li class="nav-item">
-                <a 
-                  class="nav-link scroll-trigger" 
-                  href="">
+                  href="{% url 'asambleas:principal' %}#contacto">
                     Contacto
                 </a>
               </li>
               {% if user.is_authenticated %}
-              {% if user.rol == "operador" or user.rol == "cliente" %}
-              <li class="nav-item">
-                <a 
-                  class="nav-link scroll-trigger" 
-                  href="">
-                    USUARIOS
+              {% if user.rol.nombre == "Representante" %}
+              <li class="nav-item dropdown">
+                <a
+                    href="#"
+                    class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        Propuesta <span class="caret"></span>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'asambleas:ver_secciones_individuales_de_asamblea' %}">
+                      Envíos de Miembros
+                    </a>
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'asambleas:ver_propuesta_asamblea' %}">
+                      Propuesta de Asamblea
+                    </a>
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'asambleas:lista_secciones_propuesta' %}">
+                      Trabajar en Propuesta de Asamblea
+                    </a>
+                </div>
               </li>
-              {% endif %}
-              {% if user.rol != "operador" %}
-              <li class="nav-item">
-                <a 
-                  class="nav-link scroll-trigger" 
-                  href="">
-                    Xtage21
+              </li>
+              {% elif user.rol.nombre == "Miembro" %}
+              <li class="nav-item dropdown">
+                <a
+                    href="#"
+                    class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        Propuesta <span class="caret"></span>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'asambleas:ver_propuesta_asamblea' %}">
+                      Propuesta de Asamblea
+                    </a>
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'asambleas:lista_secciones_individuales' %}">
+                      Trabajar en Mis Secciones
+                    </a>
+                </div>
+              </li>
               </li>
               {% endif %}
               <li class="nav-item">
                 <a 
                 class="nav-link scroll-trigger" 
-                href="{% url 'logout' %}?next={% url 'gestion:principal' %}">
+                href="{% url 'logout' %}?next={% url 'asambleas:principal' %}">
                 Logout
                 </a>
               </li>
@@ -130,10 +161,9 @@
     </div>
     <!-- End Section: Contacto -->
 
-<footer class="footer bg-dark text-center">
-    <p class="text-muted">&copy; 2021 ConverGente</p>
-    <p class="text-muted">ConverGente</p>
-</footer>
+    <footer class="footer text-center fixed-bottom">
+      <a style="margin:5px;color:white;">&copy; 2021 ConverGente</a>
+    </footer>
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script 

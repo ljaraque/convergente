@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<div class="container custom-section">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <br><br>
+            <h2 class="text-center">Propuesta de la Asamblea: {{asamblea.nombre}}</h2>
+        </div>
+        <div class="col-12">
+            <h3 class="text-center">{{asamblea.descripcion}}</h3>
+            <br>
+        </div>
+        <div class="col-12">
+            <h4 class="text-center" style="color: red">Esta Propuesta posee {{num_aprobaciones}} Aprobaciones y {{num_rechazos}} Rechazos. </h4>
+        </div>
+        <div class="col-12">
+            <hr>
+        </div>
+        <div class="col-12">
+            <p class="text-center"><b>Nombre de la Propuesta:</b> {{asamblea.propuestaasamblea.titulo}}</p>
+        </div>
+        <div class="col-12">
+            <p class="text-center"><b>Descripción:</b> {{asamblea.propuestaasamblea.descripcion}}</p>
+        </div>
+        <div class="col-12">
+            <p class="text-center"><b>Creador de esta versión:</b> {{asamblea.propuestaasamblea.usuario_actualizacion}}</p>
+        </div>
+        <div class="col-12">
+            <p class="text-center"><b>Última Actualización:</b> {{asamblea.propuestaasamblea.fecha_actualizacion}}</p>
+        </div>
+        <div class="col-12">
+            <hr>
+        </div>
+        <div class="col-12">
+            <br><br><br>
+            <h3 class="text-center">Contenidos de la Propuesta</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="table-responsive col col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th>Texto</th>
+                        <th>Tema</th>
+                
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seccion in secciones %}
+                    <tr>
+                        <td>{{ seccion.id }}</td>
+                        <td>{{ seccion.titulo }}</td>
+                        <td>{{ seccion.texto }}</td>
+                        <td>{{ seccion.tema }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <hr>
+        </div>
+        {% if mostrar_voto == True and user.rol.nombre == "Miembro" %}
+        <div class="col-12">
+            <h3 class="text-center">Usted aún no ha votado por esta propuesta</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <form action=""  method="post" style="width:50%;text-align:center;padding:2px;margin:0 auto" novalidate>
+                {% csrf_token %}
+                <table border="1">
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="Votar">
+            </form>
+        </div>
+        {% elif mostrar_voto == False and user.rol.nombre == "Miembro" %}
+        <div class="col-12">
+            <h3 class="text-center" style="color: red;">Usted ya ha votado <b>{{voto}} </b>por esta propuesta</h3>
+        </div>
+        {% endif %} 
+
+    </div>
+
+</div>
+<br><br><br><br>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<div class="container-fluid bg-light custom-section">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <h2 class="text-center">Aportes de Miembros de la Asamblea: {{user.asamblea.nombre}}</h2>
+        </div>
+        <div class="col-12">
+            <h3 class="text-center">Descripción Asamblea: {{user.asamblea.descripcion}}</h3>
+        </div>
+        
+        <div class="col-12">
+            <h3 class="text-center">Se han recibido los siguientes aportes de miembros</h3>
+        </div>
+        
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="table-responsive col col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th>Texto</th>
+                        <th>Tema</th>
+                        <th>Nombre Usuario</th>
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seccion in secciones %}
+                    <tr>
+                        <td>{{ seccion.id }}</td>
+                        <td>{{ seccion.titulo }}</td>
+                        <td>{{ seccion.texto }}</td>
+                        <td>{{ seccion.tema }}</td>
+                        <td>{{ seccion.usuario.username }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

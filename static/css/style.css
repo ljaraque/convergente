@@ -3,8 +3,13 @@ Awakelab
 Full Stack Python 2020
 */
 
-h1, h2, h3, h4, h5, h6, .navbar { 
+h1, h2, h3, h4, h5, h6, .navbar , footer{ 
     font-family: 'Poiret One', cursive;
+}
+
+
+#iniciativa, #que_hacemos, #contacto {
+    padding-top: 60px;
 }
 
 .card {
@@ -27,4 +32,6 @@ h1, h2, h3, h4, h5, h6, .navbar {
 }
 
 
-
+.footer {
+    background-color:black;
+}
