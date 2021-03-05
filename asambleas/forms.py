@@ -15,17 +15,12 @@ class FormularioAprobacionPA(forms.ModelForm):
 
 class EditarAsambleaForm(forms.ModelForm):
   
-  #representante = forms.ChoiceField(choices=[
-  #  (choice.pk, choice) for choice in User.objects.all()])
-
   class Meta:
     model=Asamblea
     fields='__all__'
 
   def __init__(self, *args, **kwargs):
-      #asamblea_id = kwargs.pop("asamblea_id")
       asamblea = kwargs['instance']
-      print(asamblea.id)
       super(EditarAsambleaForm, self).__init__(*args, **kwargs)
       self.fields['representante']= forms.ChoiceField(choices=[
               (choice.pk, choice) for choice in User.objects.filter(asamblea=asamblea)])
