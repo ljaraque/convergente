@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<h1>Pagina Crear Asamblea</h1>
+
+<form action="" method="POST" novalidate>
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="text" name="elemento" value="asamblea">
+    <input type="submit" value="Crear">
+</form>
+
+{% endblock %}

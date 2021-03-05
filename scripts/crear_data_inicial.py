@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from gestion.models import Rol,Distrito, Comuna, Asamblea, Tema
+from gestion.models import Rol,Distrito, Comuna, Asamblea, Tema, PropuestaAsamblea
 
 def crear():
 
@@ -52,6 +52,31 @@ def crear():
                                     direccion_calle="Avenida Acacia - Genesis"+str(index), 
                                     direccion_numero="22", 
                                     comuna=Comuna.objects.all()[index-1])
+
+    if len(PropuestaAsamblea.objects.all())<1:
+        for index in [1,2,3,4,5,6]:
+            PropuestaAsamblea.objects.create(
+                                    titulo="Título de propuesta de asamblea Genesis"+str(index),
+                                    descripcion="Descripcion de propuesta de asamble Genesis"+str(index),
+                                    asamblea=Asamblea.objects.all()[index-1]
+            )
+
+    if len(User.objects.filter(rol__nombre="Administrador"))<1:
+            User.objects.create_user(username="admin",
+                                rut="000000000",
+                                first_name="admin",
+                                apellido_paterno="admin",
+                                apellido_materno="admin",
+                                resumen="Soy el administrador",
+                                telefono="+56000000000",
+                                sexo=User.FEMENINO,
+                                estado_civil=User.SOLTERO,
+                                direccion_calle="Calle",
+                                direccion_numero="000",
+                                comuna=None,
+                                asamblea=None,
+                                password="1234", 
+                                rol=Rol.objects.get(nombre="Administrador"))
 
     if len(User.objects.all())<1:
         for index in [1,2,3,4,5,6]:

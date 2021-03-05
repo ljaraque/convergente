@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+    <form action="{% url 'asambleas:eliminar_seccion_propuesta' pk=seccion.id%}" method="POST"> 
+        {% csrf_token %} 
+        Está seguro de eliminar la pelicula con id = {{seccion.id}}? 
+        <input type="submit" value="Sí" /> 
+        <a href="{% url 'asambleas:lista_secciones_propuesta'%}">Cancelar</a> 
+    </form> 
+{% endblock %}

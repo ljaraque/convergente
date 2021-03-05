@@ -86,7 +86,7 @@
                     </a>
                 </div>
               </li>
-              </li>
+              
               {% elif user.rol.nombre == "Miembro" %}
               <li class="nav-item dropdown">
                 <a
@@ -111,8 +111,33 @@
                     </a>
                 </div>
               </li>
+              {% elif user.rol.nombre == "Administrador" %}
+              <li class="nav-item dropdown">
+                <a
+                    href="#"
+                    class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        Administración <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="{% url 'asambleas:lista_asambleas' %}">
+                      Asambleas
+                    </a>
+                    <a 
+                    class="dropdown-item scroll-trigger" 
+                    href="">
+                      Usuarios
+                    </a>
+                </div>
               </li>
+
               {% endif %}
+
               <li class="nav-item">
                 <a 
                 class="nav-link scroll-trigger" 

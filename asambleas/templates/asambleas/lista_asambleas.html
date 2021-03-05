@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<div class="container-fluid bg-light custom-section">
+    <div class="row justify-content-center align-items-center h-100">
+        <h2 class="text-center">Lista de Asambleas Inscritas</h2>
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+
+        <div class="col-sm-3">
+            <a class="btn btn-success"
+                href="{% url 'asambleas:crear_asamblea' %}">
+                    + Agregar Asamblea
+            </a>
+        </div>
+
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="table-responsive col col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Calle</th>
+                        <th>Número</th>
+                        <th>Comuna</th>
+                        <th>Distrito</th>
+                        <th>Miembros</th>
+                        <th>Prop. Actual por</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asamblea in asambleas %}
+                    <tr>
+                        <td>{{ asamblea.id }}</td>
+                        <td>{{ asamblea.nombre }}</td>
+                        <td>{{ asamblea.descripcion }}</td>
+                        <td>{{ asamblea.telefono }}</td>
+                        <td>{{ asamblea.email }}</td>
+                        <td>{{ asamblea.direccion_calle }}</td>
+                        <td>{{ asamblea.direccion_numero }}</td>
+                        <td>{{ asamblea.comuna.nombre }}</td>
+                        <td>{{ asamblea.comuna.distrito.numero }}</td>
+                        <td>{{ asamblea.propuestaasamblea.usuario_actualizacion.username }}</td>
+                    
+                        <td style="display: inline-block;">
+                            <a class="btn btn-danger btn-sm" href="{% url 'asambleas:editar_asamblea' pk=asamblea.id %}">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="">X</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    {# Código para Modal Edit #}
+    <div id="ventana_modal" class="modal fade" role="dialog"></div>
+
+    <script>
+        function abrir_modal(url)
+        {
+            $('#ventana_modal').load(url, function()
+            {
+            $(this).modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+            $(this).modal('show');
+            });
+            return false;
+        }
+        function cerrar_modal()
+        {
+        $('#ventana_modal').modal('hide');
+        return false;
+        }
+    </script>
+
+
+
+{% endblock %}

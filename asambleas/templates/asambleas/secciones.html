@@ -3,18 +3,26 @@
 {% block contenidos %}
 
 <div class="container-fluid bg-light custom-section">
+    {% if messages %}
+    <br>
+    {% for message in messages %}
+    <div class="row justify-content-center align-items-center h-100" id="mensaje">
+        <p style="font-weight: bold; color:red;">{{message}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
     <div class="row justify-content-center align-items-center h-100">
         <h2 class="text-center">Secciones de Propuesta Asamblea</h2>
     </div>
     <br>
     <div class="row justify-content-center align-items-center h-100">
 
-        <div class="col-sm-3">
+
             <a class="btn btn-success"
                 href="{% url 'asambleas:crear_seccion_propuesta' %}">
                     + Agregar Sección
             </a>
-        </div>
+
 
     </div>
     <br>
@@ -27,20 +35,20 @@
                         <th>Título</th>
                         <th>Texto</th>
                         <th>Tema</th>
-                   
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for seccion in secciones %}
                     <tr>
                         <td>{{ seccion.id }}</td>
-                        <td>{{ seccion.titulo }}</td>
-                        <td>{{ seccion.texto }}</td>
-                        <td>{{ seccion.tema }}</td>
+                        <td style="width:20%">{{ seccion.titulo }}</td>
+                        <td style="width:40%">{{ seccion.texto }}</td>
+                        <td style="width:20%">{{ seccion.tema }}</td>
      
                         <td style="display: inline-block;">
-                            <a class="btn btn-danger btn-sm" href="">Editar</a>
-                            <a class="btn btn-danger btn-sm" href="">X</a>
+                            <a class="btn btn-info btn-sm" href="{% url 'asambleas:editar_seccion_propuesta' pk=seccion.id %}">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'asambleas:eliminar_seccion_propuesta' pk=seccion.id %}">X</a>
                         </td>
                     </tr>
                 {% endfor %}

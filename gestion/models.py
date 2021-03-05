@@ -77,9 +77,9 @@ class Usuario(AbstractUser):
 
     # related
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
-    representante = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
-    asamblea = models.ForeignKey(Asamblea, on_delete=models.DO_NOTHING)
-    comuna = models.ForeignKey(Comuna, on_delete=models.DO_NOTHING)
+    representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
+    asamblea = models.ForeignKey(Asamblea, null=True, on_delete=models.DO_NOTHING)
+    comuna = models.ForeignKey(Comuna, null=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.first_name + " " + self.apellido_paterno + " - Rut: " + self.rut
@@ -101,7 +101,7 @@ class PropuestaAsamblea(models.Model):
 
     #related
     asamblea = models.OneToOneField(Asamblea, null=True, on_delete=models.DO_NOTHING)
-    usuario_actualizacion = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    usuario_actualizacion = models.ForeignKey(Usuario, null=True, on_delete=models.DO_NOTHING)
 
 
 class SeccionIndividual(models.Model):
