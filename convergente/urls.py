@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from scripts import crear_data_inicial
+from gestion.views import CustomLoginView
 
 crear_data_inicial.crear()
 
@@ -23,5 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('asambleas.urls')),
     path('gestion/', include('gestion.urls')),
+    # la siguiente ruta sobreescribe la ruta login de app auth
+    path('accounts/login/', CustomLoginView.as_view(), name='login'),
     path('accounts/', include('django.contrib.auth.urls'))
 ]

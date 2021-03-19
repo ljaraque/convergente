@@ -1,12 +1,28 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from .models import Rol
+from .models import Rol, Comuna
+import re 
 
 User = get_user_model()
 
 
 # Create your views here.
+
+
+from django.contrib.auth.views import LoginView
+
+from .forms import CustomAuthenticationForm
+
+
+###############################################################################
+# Login Usuario
+###############################################################################
+
+class CustomLoginView(LoginView):
+    authentication_form = CustomAuthenticationForm
+
+
 
 ###############################################################################
 # Registro de Usuario
@@ -18,8 +34,10 @@ def registro(request):
         form = FormularioRegistroUser(request.POST)
         if form.is_valid():
             rol = Rol.objects.get(nombre="Miembro")
-            User.objects.create_user(username=form.cleaned_data.get('username'),
-                                    rut=form.cleaned_data.get('rut'),
+            asamblea = form.cleaned_data.get('asamblea')
+            username = form.cleaned_data.get('username')
+            username_clean = re.sub("[^0-9]", "", str(username))
+            User.objects.create_user(username=username,
                                     first_name=form.cleaned_data.get('first_name'),
                                     apellido_paterno=form.cleaned_data.get('apellido_paterno'),
                                     apellido_materno=form.cleaned_data.get('apellido_materno'),
@@ -29,8 +47,8 @@ def registro(request):
                                     estado_civil=form.cleaned_data.get('estado_civil'),
                                     direccion_calle=form.cleaned_data.get('direccion_calle'),
                                     direccion_numero=form.cleaned_data.get('direccion_numero'),
-                                    comuna=form.cleaned_data.get('comuna'),
-                                    asamblea=form.cleaned_data.get('asamblea'),
+                                    comuna=asamblea.comuna, #form.cleaned_data.get('comuna'),
+                                    asamblea=asamblea, #form.cleaned_data.get('asamblea'),
                                     password=form.cleaned_data.get('password1'), 
                                     rol=rol)
             #user = authenticate(username=username, password=raw_password, rol="subcliente")

@@ -12,7 +12,7 @@
         </div>
         
         <div class="col-12">
-            <h3 class="text-center">Se han recibido los siguientes aportes de miembros</h3>
+            <h3 class="text-center">Se han recibido las siguientes ideas de nuestros miembros</h3>
         </div>
         
     </div>
@@ -27,6 +27,7 @@
                         <th>Texto</th>
                         <th>Tema</th>
                         <th>Nombre Usuario</th>
+                        <th>Fecha y Hora</th>
                    
                     </tr>
                 </thead>
@@ -38,6 +39,7 @@
                         <td>{{ seccion.texto }}</td>
                         <td>{{ seccion.tema }}</td>
                         <td>{{ seccion.usuario.username }}</td>
+                        <td>{{ seccion.fecha_creacion }}</td>
 
                     </tr>
                 {% endfor %}

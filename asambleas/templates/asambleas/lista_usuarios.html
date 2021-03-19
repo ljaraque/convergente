@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block contenidos %}
+
+<div class="container-fluid bg-light custom-section">
+    <div class="row justify-content-center align-items-center h-100">
+        <h2 class="text-center">Usuarios de mi Asamblea</h2>
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="table-responsive col col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>RUT</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Rol</th>
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.first_name }} {{ usuario.apellido_paterno }} {{usuario.apellido_materno}}</td>
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.telefono}}</td>
+                        <td>{{ usuario.direccion_calle }} {{ usuario.direccion_numero }} {{ usuario.comuna.nombre }}</td>
+                        <td>{{ usuario.rol.nombre }}</td>
+     
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

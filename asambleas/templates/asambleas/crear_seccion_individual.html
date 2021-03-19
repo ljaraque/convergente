@@ -2,15 +2,16 @@
 
 {% block contenidos %}
 
-<h1>Pagina Crear Sección Individual</h1>
+<h1>Ingresa una idea para la propuesta de nuestra Asamblea</h1>
 
-<form action="" method="POST" novalidate>
+<form action="" method="POST">
     {% csrf_token %}
     <table>
         {{form.as_table}}
     </table>
     <input type="hidden" name="elemento" value="seccion">
-    <input type="submit" value="Crear">
+    <input type="submit" class="btn btn-primary" value="Crear">
+    <a class="btn btn-primary" href="{% url 'asambleas:lista_secciones_individuales' %}">Cancelar</a>
 </form>
 
 {% endblock %}

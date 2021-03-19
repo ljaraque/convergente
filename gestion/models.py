@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
+
+
 # Create your models here.
 
 class Distrito(models.Model):
@@ -65,8 +68,7 @@ class Usuario(AbstractUser):
     ]
     apellido_paterno = models.CharField(max_length=50, null=True, verbose_name="Apellido Paterno")
     apellido_materno = models.CharField(max_length=50, null=True, verbose_name="Apellido Materno")
-    rut = models.CharField(max_length=12, unique=True)
-    resumen = models.TextField(max_length=300)
+    resumen = models.TextField(max_length=300, null=True)
     telefono = models.CharField(max_length=20)
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     estado_civil = models.IntegerField(choices=ESTADO_CIVIL_CHOICES, default=SOLTERO)
@@ -77,12 +79,13 @@ class Usuario(AbstractUser):
 
     # related
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
-    representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
+    #representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
     asamblea = models.ForeignKey(Asamblea, null=True, on_delete=models.DO_NOTHING)
     comuna = models.ForeignKey(Comuna, null=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.first_name + " " + self.apellido_paterno + " - Rut: " + self.rut
+        return  "Rut: " + self.username + " - " +self.first_name + " " + self.apellido_paterno
+
 
 class Tema(models.Model):
     nombre = models.CharField(max_length=100)
@@ -96,6 +99,7 @@ class Tema(models.Model):
 class PropuestaAsamblea(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField(max_length=300)
+    en_aprobacion = models.BooleanField(null=True, default=False)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 

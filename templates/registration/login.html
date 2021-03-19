@@ -2,7 +2,8 @@
 
 {% block contenidos %}
 <div class="container-fluid">
-    <h1>Página de Login</h1>
+    <br>
+    <h1>Login</h1>
     <div class="row">
         <div class="col-12">
             {% if form.errors %}
@@ -18,13 +19,17 @@
             {% endif %}
             {% endif %}
         </div>
-            <div class="col-12">
+        <div class="col-12">
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
+                <p>Ingrese RUT sin puntos ni guión,</p>
+                <p>incluyendo el dígito verificador</p>
                 <table>
                 {{ form.as_table }}
                 </table>
+                <br>
                 <input type="submit" class="btn btn-primary" value="Login" />
+                <a class="btn btn-primary" href="{% url 'asambleas:principal' %}">Cancelar</a>
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>
         </div>

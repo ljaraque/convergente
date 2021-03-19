@@ -11,6 +11,9 @@ class FormularioAprobacionPA(forms.ModelForm):
         widgets = {
           'comentario': forms.Textarea(attrs={'rows':3}),
         }
+        help_texts = {
+            'comentario': 'Este campo es obligatorio.',
+        }
 
 
 class EditarAsambleaForm(forms.ModelForm):

@@ -28,25 +28,23 @@
                         <th>Descripción</th>
                         <th>Teléfono</th>
                         <th>Email</th>
-                        <th>Calle</th>
-                        <th>Número</th>
-                        <th>Comuna</th>
+                        <th>Dirección</th>
+                        <th>Representante</th>
                         <th>Distrito</th>
-                        <th>Miembros</th>
-                        <th>Prop. Actual por</th>
+                        <th>Propuesta Actual Por</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for asamblea in asambleas %}
+                    {% for asamblea, representante in asambleas_representantes %}
                     <tr>
                         <td>{{ asamblea.id }}</td>
                         <td>{{ asamblea.nombre }}</td>
                         <td>{{ asamblea.descripcion }}</td>
                         <td>{{ asamblea.telefono }}</td>
                         <td>{{ asamblea.email }}</td>
-                        <td>{{ asamblea.direccion_calle }}</td>
-                        <td>{{ asamblea.direccion_numero }}</td>
-                        <td>{{ asamblea.comuna.nombre }}</td>
+                        <td>{{ asamblea.direccion_calle }} {{ asamblea.direccion_numero }}, {{ asamblea.comuna.nombre }}</td>
+                        <td>{{ representante }}</td>
                         <td>{{ asamblea.comuna.distrito.numero }}</td>
                         <td>{{ asamblea.propuestaasamblea.usuario_actualizacion.username }}</td>
                     

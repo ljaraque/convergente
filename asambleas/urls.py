@@ -16,4 +16,6 @@ urlpatterns = [
     path('lista_asambleas', views.ListaAsambleas.as_view(), name='lista_asambleas'),
     path('crear_asamblea', views.CrearAsamblea.as_view(), name='crear_asamblea'),
     path('<pk>/editar_asamblea', views.EditarAsamblea.as_view(), name='editar_asamblea'),
+    path('voto_toggle/', views.voto_toggle, name='voto_toggle'),
+    path('lista_usuarios/', views.ListaUsuarios.as_view(), name='lista_usuarios'),
 ]

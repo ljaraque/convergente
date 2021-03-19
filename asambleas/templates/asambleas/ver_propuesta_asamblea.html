@@ -2,6 +2,17 @@
 
 {% block contenidos %}
 
+{% if mostrar_voto == False and bloqueada == True and user.rol.nombre != "Administrador" %}
+<div class="container custom-section">
+    <br><br>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <h3 class="text-center" style="color: red;">La propuesta está bloqueada pues el representante está realizando modificaciones</h3>
+        </div>
+    </div>
+</div>
+
+{% else %}
 <div class="container custom-section">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-12">
@@ -83,15 +94,17 @@
                 </table>
                 <input type="submit" value="Votar">
             </form>
-        </div>
-        {% elif mostrar_voto == False and user.rol.nombre != "Administrador" %}
+        </div> 
+        {% elif mostrar_voto == False and bloqueada == False and user.rol.nombre != "Administrador" %}
         <div class="col-12">
             <h3 class="text-center" style="color: red;">Usted ya ha votado <b>{{voto}} </b>por esta propuesta</h3>
         </div>
+
         {% endif %} 
 
     </div>
 
 </div>
 <br><br><br><br>
+{% endif %}
 {% endblock %}

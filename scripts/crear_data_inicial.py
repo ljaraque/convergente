@@ -63,7 +63,6 @@ def crear():
 
     if len(User.objects.filter(rol__nombre="Administrador"))<1:
             User.objects.create_user(username="admin",
-                                rut="000000000",
                                 first_name="admin",
                                 apellido_paterno="admin",
                                 apellido_materno="admin",
@@ -73,6 +72,7 @@ def crear():
                                 estado_civil=User.SOLTERO,
                                 direccion_calle="Calle",
                                 direccion_numero="000",
+                                representante=False,
                                 comuna=None,
                                 asamblea=None,
                                 password="1234", 
@@ -81,7 +81,6 @@ def crear():
     if len(User.objects.all())<1:
         for index in [1,2,3,4,5,6]:
             User.objects.create_user(username="Neo"+str(index),
-                                rut="12345678-"+str(index),
                                 first_name="Neo"+str(index),
                                 apellido_paterno="NeoAp",
                                 apellido_materno="NeoAp",
@@ -91,13 +90,13 @@ def crear():
                                 estado_civil=User.SOLTERO,
                                 direccion_calle="Calle",
                                 direccion_numero="000",
+                                representante=True,
                                 comuna=Asamblea.objects.all()[index-1].comuna,
                                 asamblea=Asamblea.objects.all()[index-1],
                                 password="1234", 
                                 rol=Rol.objects.get(nombre="Representante"))
 
             User.objects.create_user(username="Alan"+str(index),
-                                rut="22345678-"+str(index),
                                 first_name="Alan"+str(index),
                                 apellido_paterno="AlanAp",
                                 apellido_materno="AlanAp",
@@ -107,6 +106,7 @@ def crear():
                                 estado_civil=User.SOLTERO,
                                 direccion_calle="Calle",
                                 direccion_numero="000",
+                                representante=False,
                                 comuna=Asamblea.objects.all()[0].comuna,
                                 asamblea=Asamblea.objects.all()[0],
                                 password="1234", 

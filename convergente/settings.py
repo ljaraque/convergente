@@ -25,7 +25,7 @@ SECRET_KEY = 'ns((3u5uini1s81u649e8b9mx#4c9oht5-t*su=utjp7y5t!cy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['190.160.154.251', '0.0.0.0', 'localhost']
 
 
 # Application definition

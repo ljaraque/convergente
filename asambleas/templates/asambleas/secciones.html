@@ -16,6 +16,13 @@
     </div>
     <br>
     <div class="row justify-content-center align-items-center h-100">
+        <p style="font-weight: bold; color:red;" id="estado-votaciones">{{ estado_votaciones }}</p>
+    </div>
+    <div class="row justify-content-center align-items-center h-100">
+        <input class="btn btn-success" type="button" id="voto-toggle" name="{{ propuesta_asamblea_id }}" value="{{ texto_boton }}" />
+    </div>
+    <br>
+    <div class="row justify-content-center align-items-center h-100">
 
 
             <a class="btn btn-success"
@@ -57,4 +64,49 @@
         </div>
     </div>
 
+
+    <div id="alertModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Votaciones</h4>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4></h4>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">
+                        Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
 {% endblock %}
+
+
+{% block scripts %}
+<script>
+    $('#voto-toggle').click(function(){
+          $.ajax({
+                  type: "POST",
+                  url: "{% url 'asambleas:voto_toggle' %}",
+                  data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                  dataType: "json",
+                  success: function(response) {
+                          console.log(response);
+                          $("#voto-toggle").prop("value", response.texto_boton);
+                          $("#estado-votaciones").text(response.estado_votaciones);
+                          $('#alertModal').find('.modal-body h4').text(response.message);
+                          $('#alertModal').modal('show');
+                    },
+                    error: function(rs, e) {
+                          alert(rs.responseText);
+                    }
+              }); 
+        })
+  </script>
+
+  {% endblock %}

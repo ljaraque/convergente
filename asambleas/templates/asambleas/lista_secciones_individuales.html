@@ -4,7 +4,7 @@
 
 <div class="container-fluid bg-light custom-section">
     <div class="row justify-content-center align-items-center h-100">
-        <h2 class="text-center">Mis Secciones Propuestas a la Asamblea</h2>
+        <h2 class="text-center">Mis ideas para la propuesta de mi Asamblea</h2>
     </div>
     <br>
     <div class="row justify-content-center align-items-center h-100">
@@ -12,7 +12,7 @@
         <div class="col-sm-3">
             <a class="btn btn-success"
                 href="{% url 'asambleas:crear_seccion_individual' %}">
-                    + Agregar Sección
+                    + Agregar Idea
             </a>
         </div>
 
@@ -27,6 +27,7 @@
                         <th>Título</th>
                         <th>Texto</th>
                         <th>Tema</th>
+                        <th>Fecha y Hora</th>
                    
                     </tr>
                 </thead>
@@ -37,11 +38,8 @@
                         <td>{{ seccion.titulo }}</td>
                         <td>{{ seccion.texto }}</td>
                         <td>{{ seccion.tema }}</td>
+                        <td>{{ seccion.fecha_creacion }}</td>
      
-                        <td style="display: inline-block;">
-                            <a class="btn btn-danger btn-sm" href="">Editar</a>
-                            <a class="btn btn-danger btn-sm" href="">X</a>
-                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

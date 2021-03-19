@@ -4,13 +4,13 @@
 
 <h1>Pagina Editar Asamblea</h1>
 
-<form action="" method="POST" novalidate>
+<form action="" method="POST">
     {% csrf_token %}
     <table>
         {{form.as_table}}
     </table>
-    <input type="hidden" name="elemento" value="asamblea">
-    <input type="submit" value="Guardar">
+    <input type="submit" class="btn btn-primary" value="Guardar">
+    <a class="btn btn-primary" href="{% url 'asambleas:lista_asambleas' %}">Cancelar</a>
 </form>
 
 {% endblock %}
