@@ -74,12 +74,13 @@ class Usuario(AbstractUser):
     estado_civil = models.IntegerField(choices=ESTADO_CIVIL_CHOICES, default=SOLTERO)
     direccion_calle = models.CharField(max_length=200)
     direccion_numero = models.CharField(max_length=50)
+    es_representante = models.BooleanField(null=True, default=False)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
     # related
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
-    representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
+    #representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
     asamblea = models.ForeignKey(Asamblea, null=True, on_delete=models.DO_NOTHING)
     comuna = models.ForeignKey(Comuna, null=True, on_delete=models.DO_NOTHING)
 
@@ -145,4 +146,3 @@ class AprobacionPA(models.Model):
     #related
     propuesta_asamblea = models.ForeignKey(PropuestaAsamblea, on_delete=models.CASCADE)
     usuario = models.OneToOneField(Usuario, models.CASCADE)
-
