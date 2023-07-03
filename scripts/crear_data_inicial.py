@@ -7,6 +7,7 @@ def crear():
     if len(Rol.objects.all())<1:
         Rol.objects.create(nombre="Miembro", descripcion="Ciudadano perteneciente a una asamblea territorial")
         Rol.objects.create(nombre="Representante", descripcion="Ciudadano representante de una asamblea territorial")
+        Rol.objects.create(nombre="Administrador", descripcion="Ciudadano administrador de una asamblea territorial")
         Rol.objects.create(nombre="Superadmin", descripcion="Usuario administrador de la plataforma ConverGente")
 
     if len(Distrito.objects.all())<1:

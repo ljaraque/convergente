@@ -79,7 +79,7 @@ class Usuario(AbstractUser):
 
     # related
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
-    #representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
+    representante = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
     asamblea = models.ForeignKey(Asamblea, null=True, on_delete=models.DO_NOTHING)
     comuna = models.ForeignKey(Comuna, null=True, on_delete=models.DO_NOTHING)
 
