@@ -3,10 +3,11 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView
 from django.views.generic import DetailView, DeleteView
 from django.views.generic.base import View
-from gestion.models import Seccion, SeccionIndividual, PropuestaAsamblea, Asamblea, Rol
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
 from django.contrib.auth import get_user_model
+from gestion.models import (
+    Seccion, SeccionIndividual, PropuestaAsamblea, Asamblea, Rol
+)
 
 User = get_user_model()
 
@@ -14,17 +15,11 @@ User = get_user_model()
 def es_representante(user):
     return user.rol==Rol.objects.get(nombre="Representante")
 
-
 def es_miembro(user):
     return user.rol==Rol.objects.get(nombre="Miembro")
 
-
 def es_administrador(user):
     return user.rol==Rol.objects.get(nombre="Administrador")
-
-
-# Create your views here.
-
 
 def principal(request):
     return render(request, 'asambleas/principal.html')
@@ -49,19 +44,24 @@ class BorrarVotacionesMixin:
 
 
 # C de CRUD
-class CrearSeccionPropuesta(LoginRequiredMixin, 
-                            UserPassesTestMixin,
-                            SuccessMessageMixin,
-                            BorrarVotacionesMixin, 
-                            CreateView):
+class CrearSeccionPropuesta(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin,
+    BorrarVotacionesMixin, CreateView
+):
+    
     model = Seccion
     fields = ['tema','titulo', 'texto']
     template_name = 'asambleas/crear_seccion.html'
     success_url = reverse_lazy('asambleas:lista_secciones_propuesta')
-    success_message = 'APROBACIONES BORRADAS: Debe solicitar aprobaciones nuevamente!'
+    success_message = (
+        'APROBACIONES BORRADAS: '
+        'Debe solicitar aprobaciones nuevamente!'
+    )
 
     def form_valid(self, form):
-        form.instance.propuesta_asamblea = self.request.user.asamblea.propuestaasamblea
+        form.instance.propuesta_asamblea = (
+            self.request.user.asamblea.propuestaasamblea
+        )
         return super(CrearSeccionPropuesta, self).form_valid(form)
 
     def test_func(self):
@@ -69,19 +69,26 @@ class CrearSeccionPropuesta(LoginRequiredMixin,
 
 
 # R de CRUD
-class ListaSeccionesPropuesta(LoginRequiredMixin, 
-                                UserPassesTestMixin, 
-                                ListView):
+class ListaSeccionesPropuesta(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):
+    
     model = Seccion
     template_name = 'asambleas/secciones.html'
     context_object_name = 'secciones'
 
     def get_queryset(self):
-        return Seccion.objects.filter(propuesta_asamblea=self.request.user.asamblea.propuestaasamblea).order_by('-fecha_actualizacion')
+        return Seccion.objects.filter(
+            propuesta_asamblea=self.request.user.asamblea.propuestaasamblea
+        ).order_by('-fecha_actualizacion')
 
     def get_context_data(self, **kwargs):
-        context = super(ListaSeccionesPropuesta, self).get_context_data(**kwargs) # default
-        context['propuesta_asamblea_id']=self.request.user.asamblea.propuestaasamblea.id
+        context = super(
+            ListaSeccionesPropuesta, self
+        ).get_context_data(**kwargs) # default
+        context['propuesta_asamblea_id'] = (
+            self.request.user.asamblea.propuestaasamblea.id
+        )
         if self.request.user.asamblea.propuestaasamblea.en_aprobacion==True:
             context['estado_votaciones']='Las votaciones están Activadas'
             context['texto_boton']='Desactivar Votaciones'
@@ -95,32 +102,38 @@ class ListaSeccionesPropuesta(LoginRequiredMixin,
 
 
 # U de CRUD
-class EditarSeccionPropuesta(LoginRequiredMixin, 
-                            UserPassesTestMixin, 
-                            SuccessMessageMixin, 
-                            BorrarVotacionesMixin, 
-                            UpdateView):
+class EditarSeccionPropuesta(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, 
+    BorrarVotacionesMixin, UpdateView
+):
+    
     model = Seccion
     template_name = 'asambleas/editar_seccion.html'
     fields = ['tema','titulo','texto']
     success_url = reverse_lazy('asambleas:lista_secciones_propuesta')
-    success_message = 'APROBACIONES BORRADAS: Debe solicitar aprobaciones nuevamente!'
+    success_message = (
+        'APROBACIONES BORRADAS: '
+        'Debe solicitar aprobaciones nuevamente!'
+    )
 
     def test_func(self):
         return es_representante(self.request.user)
 
 
 # D de CRUD
-class EliminarSeccionPropuesta(LoginRequiredMixin, 
-                            UserPassesTestMixin, 
-                            SuccessMessageMixin, 
-                            BorrarVotacionesMixin, 
-                            DeleteView):
+class EliminarSeccionPropuesta(
+    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, 
+    BorrarVotacionesMixin, DeleteView
+):
+    
     model = Seccion
     context_object_name = 'seccion'
     template_name = 'asambleas/eliminar_seccion.html'
     success_url = reverse_lazy('asambleas:lista_secciones_propuesta')
-    success_message = 'APROBACIONES BORRADAS: Debe solicitar aprobaciones nuevamente!'
+    success_message = (
+        'APROBACIONES BORRADAS:'
+        'Debe solicitar aprobaciones nuevamente!'
+    )
 
     def test_func(self):
         return es_representante(self.request.user)
@@ -155,7 +168,9 @@ class ListaSeccionesIndividuales(LoginRequiredMixin,
     context_object_name = 'secciones'
 
     def get_queryset(self):
-        return SeccionIndividual.objects.filter(usuario=self.request.user).order_by('-fecha_creacion')
+        return SeccionIndividual.objects.filter(
+            usuario=self.request.user
+        ).order_by('-fecha_creacion')
 
     def test_func(self):
         return es_miembro(self.request.user)
@@ -165,14 +180,13 @@ class ListaSeccionesIndividuales(LoginRequiredMixin,
 
 # D de CRUD
 
-
-
 from .forms import FormularioAprobacionPA
 from gestion.models import AprobacionPA
 # Ver Propuesta Asamblea
-class VerPropuestaAsamblea(LoginRequiredMixin, 
-                            UserPassesTestMixin, 
-                            ListView):
+class VerPropuestaAsamblea(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):
+    
     model = Seccion
     template_name = 'asambleas/ver_propuesta_asamblea.html'
     context_object_name = 'secciones'
@@ -180,7 +194,9 @@ class VerPropuestaAsamblea(LoginRequiredMixin,
     model_aprobacion = AprobacionPA
 
     def get_queryset(self):
-        return Seccion.objects.filter(propuesta_asamblea=self.request.user.asamblea.propuestaasamblea).order_by('-fecha_actualizacion')
+        return Seccion.objects.filter(
+            propuesta_asamblea=self.request.user.asamblea.propuestaasamblea
+        ).order_by('-fecha_actualizacion')
 
     def get_context_data(self, **kwargs):
         context = super(VerPropuestaAsamblea, self).get_context_data(**kwargs) # default
@@ -250,9 +266,10 @@ class VerPropuestaAsamblea(LoginRequiredMixin,
 
 
 # Ver Secciones Individuales de la Asamblea
-class VerSeccionesIndividuales(LoginRequiredMixin, 
-                            UserPassesTestMixin, 
-                            ListView):
+class VerSeccionesIndividuales(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):
+    
     model = SeccionIndividual
     template_name = 'asambleas/ver_secciones_individuales_de_asamblea.html'
     context_object_name = 'secciones'
@@ -261,7 +278,9 @@ class VerSeccionesIndividuales(LoginRequiredMixin,
         asamblea = self.request.user.asamblea
         usuarios_asamblea = asamblea.usuario_set.all()
         print(usuarios_asamblea)
-        return SeccionIndividual.objects.filter(usuario__in=usuarios_asamblea).order_by('-fecha_creacion')
+        return SeccionIndividual.objects.filter(
+            usuario__in=usuarios_asamblea
+        ).order_by('-fecha_creacion')
 
     def test_func(self):
         return es_representante(self.request.user)
