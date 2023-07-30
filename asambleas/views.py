@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from gestion.models import (
     Seccion, SeccionIndividual, PropuestaAsamblea, Asamblea, Rol
 )
+from .forms import EditarAsambleaForm
 
 User = get_user_model()
 
@@ -289,9 +290,10 @@ class VerSeccionesIndividuales(
 # CRUD Asambleas para Administrador
 
 # C de CRUD
-class CrearAsamblea(LoginRequiredMixin, 
-                    UserPassesTestMixin, 
-                    CreateView):
+class CrearAsamblea(
+    LoginRequiredMixin, UserPassesTestMixin, CreateView
+):
+    
     model = Asamblea
     fields = ['nombre','descripcion','telefono','email','direccion_calle','direccion_numero','comuna']
     template_name = 'asambleas/crear_asamblea.html'
@@ -311,10 +313,12 @@ class CrearAsamblea(LoginRequiredMixin,
     def test_func(self):
         return es_administrador(self.request.user)
 
+
 # R de CRUD
-class ListaAsambleas(LoginRequiredMixin, 
-                    UserPassesTestMixin, 
-                    ListView):
+class ListaAsambleas(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):
+    
     model = Asamblea
     template_name = 'asambleas/lista_asambleas.html'
     context_object_name = 'asambleas'
@@ -338,11 +342,11 @@ class ListaAsambleas(LoginRequiredMixin,
         return es_administrador(self.request.user)
 
 
-from .forms import EditarAsambleaForm
 # U de CRUD
-class EditarAsamblea(LoginRequiredMixin, 
-                    UserPassesTestMixin, 
-                    UpdateView):
+class EditarAsamblea(
+    LoginRequiredMixin, UserPassesTestMixin, UpdateView
+):
+    
     model = Asamblea
     form_class = EditarAsambleaForm
     template_name = 'asambleas/editar_asamblea.html'
@@ -364,7 +368,6 @@ class EditarAsamblea(LoginRequiredMixin,
         return es_administrador(self.request.user)
 
 # D de CRUD
-
 
 
 #------------------------------------------------------------------------------
@@ -416,9 +419,10 @@ def voto_toggle(request):
 
 # R de CRUD
 
-class ListaUsuarios(LoginRequiredMixin, 
-                    UserPassesTestMixin, 
-                    ListView):
+class ListaUsuarios(
+    LoginRequiredMixin, UserPassesTestMixin, ListView
+):
+    
     model = User
     template_name = 'asambleas/lista_usuarios.html'
     context_object_name = 'usuarios'
@@ -427,6 +431,8 @@ class ListaUsuarios(LoginRequiredMixin,
         return User.objects.filter(asamblea=self.request.user.asamblea)
 
     def test_func(self):
-        return (es_administrador(self.request.user) 
-                or es_representante(self.request.user) 
-                or es_miembro(self.request.user))
+        return (
+            es_administrador(self.request.user) 
+            or es_representante(self.request.user) 
+            or es_miembro(self.request.user)
+        )
