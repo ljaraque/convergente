@@ -231,11 +231,11 @@ class VerPropuestaAsamblea(
         if formulario.is_valid():
             form_data = formulario.cleaned_data
             self.model_aprobacion.objects.create(
-                            tipo = form_data['tipo'],
-                            comentario = form_data['comentario'],
-                            usuario = self.request.user,
-                            propuesta_asamblea = request.user.asamblea.propuestaasamblea
-                            )
+                tipo = form_data['tipo'],
+                comentario = form_data['comentario'],
+                usuario = self.request.user,
+                propuesta_asamblea = request.user.asamblea.propuestaasamblea
+            )
             return redirect('asambleas:ver_propuesta_asamblea')
         context = {self.context_object_name:self.get_queryset()}
         context['asamblea'] = self.request.user.asamblea
