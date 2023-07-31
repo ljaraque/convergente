@@ -92,7 +92,7 @@ python manage.py runserver 0.0.0.0:8000
 docker-compose up
 ```
 
-### Hints:  
+**Hints**:  
 - Stop keeping database data: `docker-compose down`
 - Stop deleting database data: `docker-compose down -v`  
 
