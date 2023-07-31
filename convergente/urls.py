@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from scripts import crear_data_inicial
+#from scripts import crear_data_inicial
 from gestion.views import CustomLoginView
 
-crear_data_inicial.crear()
+#crear_data_inicial.crear()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
