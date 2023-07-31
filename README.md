@@ -104,3 +104,7 @@ Getting all users from api with `jwt` token authentication:
 python api/utilities/get_all_users_from_api.py
 ```
 Other `api`endpoints under development.  
+
+11. Database relational diagram:  
+
+![Data Diagram](db/data_model_relational_diagram.png)
