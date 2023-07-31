@@ -34,7 +34,23 @@ on your local machine for development and testing purposes.
    ```bash
    git clone https://github.com/your_username/convergente.git
    ```
-2. Setup the virtual environment:  
+
+2. Create `.env` files:
+Example file: 
+```
+DEBUG=1
+SECRET_KEY=whatever
+DJANGO_ALLOWED_HOSTS=0.0.0.0 localhost 127.0.0.1 [::1]
+SQL_ENGINE=django.db.backends.postgresql_psycopg2
+SQL_DATABASE=convergente
+SQL_USER=postgres
+SQL_PASSWORD=your_password
+SQL_HOST=db
+SQL_PORT=5432
+DATABASE=postgres
+```
+
+3. Setup the virtual environment:  
 
 ```bash
 cd convergente
@@ -42,40 +58,40 @@ python -m venv venv
 source venv/bin/activate  # On Windows, use "venv\Scripts\activate"
 ```
 
-3. Install dependencies:  
+4. Install dependencies:  
 ```bash
 pip install -r requirements.txt
 
 ```
 
-4. Configure the database:
+5. Configure the database:
 
 - Create a PostgreSQL database for ConverGente. Database name should be `convergente`
 - Update the database settings in convergente/settings.py with your database credentials.
 
-5. Apply migrations to database:  
+6. Apply migrations to database:  
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-6. Create initial data:  
+7. Create initial data:  
 ```bash
 python manage.py populate_data
 ```
 
-7. Run the project:  
+8. Run the project:  
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
 
-8. Execution via Docker:  
+9. Execution via Docker:  
 
 ```
 docker-compose up
 ```
 
-###Hints:  
+### Hints:  
 - Stop keeping database data: `docker-compose down`
 - Stop deleting database data: `docker-compose down -v`  
