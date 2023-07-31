@@ -26,5 +26,6 @@ urlpatterns = [
     path('gestion/', include('gestion.urls')),
     # la siguiente ruta sobreescribe la ruta login de app auth
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('api/', include('api.urls')), 
 ]

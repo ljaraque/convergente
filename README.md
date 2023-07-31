@@ -95,3 +95,12 @@ docker-compose up
 ### Hints:  
 - Stop keeping database data: `docker-compose down`
 - Stop deleting database data: `docker-compose down -v`  
+
+10. Example of `api` use:  
+
+Getting all users from api with `jwt` token authentication:  
+
+```bash
+python api/utilities/get_all_users_from_api.py
+```
+Other `api`endpoints under development.  
