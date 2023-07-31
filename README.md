@@ -24,9 +24,8 @@ on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-- Python (version X.X.X)
-- PostgreSQL (version X.X.X)
-- Other prerequisites...
+- Python (version 3.10.9)
+- PostgreSQL (version 15.3)
 
 ### Installation
 
@@ -70,3 +69,13 @@ python manage.py populate_data
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
+
+8. Execution via Docker:  
+
+```
+docker-compose up
+```
+
+###Hints:  
+- Stop keeping database data: `docker-compose down`
+- Stop deleting database data: `docker-compose down -v`  
